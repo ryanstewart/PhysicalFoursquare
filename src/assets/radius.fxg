@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Graphic version="1.0" viewHeight="80.8247" viewWidth="80.8242" xmlns="http://ns.adobe.com/fxg/2008">
+  <Library/>
+  <Group d:type="layer" d:userLabel="Layer 1" xmlns:d="http://ns.adobe.com/fxg/2008/dt">
+    <Group>
+      <Group>
+        <Ellipse y="0.000488281" width="80.8242" height="80.8242">
+          <fill>
+            <LinearGradient x="47.4307" y="80.2173" scaleX="80.8389" rotation="-100">
+              <GradientEntry color="#007b48" ratio="0"/>
+              <GradientEntry color="#52a770" ratio="0.299962"/>
+              <GradientEntry color="#a4d397" ratio="0.606742"/>
+              <GradientEntry color="#edeabf" ratio="0.898876"/>
+            </LinearGradient>
+          </fill>
+        </Ellipse>
+      </Group>
+      <Group x="1.00684" y="1.61084">
+        <Path winding="nonZero" data="M44.0234 77.3174C44.4609 77.2617 44.8916 77.1934 45.3242 77.1221 24.5293 79.168 5.71094 64.3564 2.95508 43.4824 0.199707 22.6108 14.5293 3.42383 35.1401 0 34.7051 0.0439453 34.2671 0.0908203 33.832 0.148438 12.5205 2.96338 -2.47461 22.5186
+ 0.339355 43.8281 3.15576 65.1396 22.7104 80.1318 44.0234 77.3174Z" >
+          <fill>
+            <LinearGradient x="10.3281" y="65.5431" scaleX="66.1583" rotation="-50.0001">
+              <GradientEntry color="#3da949" ratio="0"/>
+              <GradientEntry color="#9ed4a4" ratio="0.174158"/>
+              <GradientEntry color="#ffffff" ratio="0.342697"/>
+              <GradientEntry color="#e4f0cd" ratio="0.533708"/>
+              <GradientEntry color="#c9e09a" ratio="0.820225"/>
+              <GradientEntry color="#9dcb3e" ratio="0.960674"/>
+            </LinearGradient>
+          </fill>
+        </Path>
+      </Group>
+      <Group x="15.9609" y="3.95117">
+        <Ellipse y="0.00146484" width="49.1611" height="30.543">
+          <fill>
+            <LinearGradient x="24.5806" scaleX="30.5444" rotation="90">
+              <GradientEntry color="#ffffff" ratio="0"/>
+              <GradientEntry color="#bfdb88" ratio="1"/>
+            </LinearGradient>
+          </fill>
+        </Ellipse>
+      </Group>
+    </Group>
+  </Group>
+</Graphic>
