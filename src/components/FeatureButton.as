@@ -1,3 +1,20 @@
+/**
+ * Ryan Stewart - http://blog.digitalbackcountry.com
+ * ryan@adobe.com
+ *  
+ * This project was created to show off a Flash application on mobile devices.
+ * It was customized to run for the screen size of the Nexus One but should work
+ * on any other device that supports Flash.
+ * 
+ * ----------------------------------------------------------------------------
+ *  "THE BEER-WARE LICENSE" (Revision 42):
+ * <ryan@adobe.com> wrote this file. As long as you retain this notice you
+ * can do whatever you want with this stuff. If we meet some day, and you think
+ * this stuff is worth it, you can buy me a beer in return 
+ * 															=Ryan Stewart
+ * ----------------------------------------------------------------------------
+ */
+
 package components
 {
 	import flash.display.Bitmap;
@@ -22,7 +39,7 @@ package components
 	
 	public class FeatureButton extends SimpleButton
 	{
-		protected var _imageName:String;
+		private var _imageName:String;
 		protected var _downState:Sprite;
 		protected var _featureCode:String;
 		
@@ -34,6 +51,12 @@ package components
 			init();			
 		}
 		
+
+		public function get imageName():String
+		{
+			return _imageName;
+		}
+
 		public function get featureCode():String
 		{
 			return _featureCode;
@@ -60,12 +83,14 @@ package components
 			hitTestState = hit;
 			
 			
-			// Over			
+			// Over	- Deprecate this
+			/*
 			request = new URLRequest('assets/'+_imageName+'_over.png');
 			
 			loader = new Loader();
 			loader.contentLoaderInfo.addEventListener(Event.COMPLETE,onLoaderOverComplete);
 			loader.load(request);			
+			*/
 			
 			// Down
 			request = new URLRequest('assets/'+_imageName+'_down.png');
@@ -80,6 +105,8 @@ package components
 			var loaderInfo:LoaderInfo = event.target as LoaderInfo;
 			upState = loaderInfo.loader;
 			upState.name = _imageName;
+			
+			overState = upState;
 		}
 		
 		protected function onLoaderOverComplete(event:Event):void

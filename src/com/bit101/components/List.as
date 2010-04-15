@@ -39,6 +39,7 @@ package com.bit101.components
 		protected var _itemHolder:Sprite;
 		protected var _panel:Panel;
 		protected var _listItemHeight:Number = 20;
+		protected var _scrollbar:VScrollBar;
 		protected var _selectedIndex:int = -1;
 		protected var _defaultColor:uint = 0xffffff;
 		protected var _selectedColor:uint = 0xdddddd;
@@ -78,7 +79,7 @@ package com.bit101.components
 			_panel.color = _defaultColor;
 			_itemHolder = new Sprite();
 			_panel.content.addChild(_itemHolder);
-			//_scrollbar = new VScrollBar(this, 0, 0, onScroll);
+			_scrollbar = new VScrollBar(this, 0, 0, onScroll);
 		}
 		
 		/**
@@ -90,25 +91,17 @@ package com.bit101.components
 
 			for(var i:int = 0; i < _items.length; i++)
 			{
-				var label:String;
+				var label:String = "";
 				
-				if(_labelFunction == null) 
+				if(_labelFunction != null) 
 				{
-					label = labelFunction(_items[i]);	
-				} else
+					label = _labelFunction(_items[i]);	
+				} else if(_items[i].label is String)
 				{
-					label = _labelFunction(_items[i]);
-				}
+					label = _items[i].label;
+				}			
 				
-				/*	
-				for(var prop:String in _labelFields)
-				{
-					if(_items[i][prop])
-					{
-						label = label + _items[i][prop] + " ";
-					}
-				}
-*/
+
 				var item:ListItem = new ListItem(_itemHolder, 0, i * _listItemHeight, label);
 				item.setSize(width, _listItemHeight);
 				item.defaultColor = _defaultColor;
@@ -167,7 +160,6 @@ package com.bit101.components
 			_panel.color = _defaultColor;
 			
 			// scrollbar
-			/*
 			_scrollbar.x = _width - 10;
 			var contentHeight:Number = _items.length * _listItemHeight;
 			_scrollbar.setThumbPercent(_height / contentHeight); 
@@ -175,7 +167,6 @@ package com.bit101.components
 			_scrollbar.setSliderParams(0, Math.max(0, _items.length - pageSize), _itemHolder.y / _listItemHeight);
 			_scrollbar.pageSize = pageSize;
 			_scrollbar.height = _height;
-			*/
 		}
 		
 		/**
@@ -232,12 +223,7 @@ package com.bit101.components
 		}
 		
 		
-		protected function labelFunction(item:Object):String
-		{
-			return item.name + ", " + item.countryName;
-			//trace('test');
-			//return "blah";
-		}
+		
 		
 		
 		///////////////////////////////////
@@ -263,7 +249,7 @@ package com.bit101.components
 		 */
 		protected function onScroll(event:Event):void
 		{
-			//_itemHolder.y = -_scrollbar.value * _listItemHeight;
+			_itemHolder.y = -_scrollbar.value * _listItemHeight;
 		}
 		
 		///////////////////////////////////

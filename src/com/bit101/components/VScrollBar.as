@@ -1,10 +1,9 @@
 /**
- * Style.as
+ * VScrollBar.as
  * Keith Peters
  * version 0.9.0
  * 
- * A collection of style variables used by the components.
- * If you want to customize the colors of your components, change these values BEFORE instantiating any components.
+ * A vertical scroll bar for use in other components. 
  * 
  * Copyright (c) 2010 Keith Peters
  * 
@@ -26,17 +25,23 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
- 
+
 package com.bit101.components
 {
-	public class Style
+	import flash.display.DisplayObjectContainer;
+	
+	public class VScrollBar extends ScrollBar
 	{
-		public static var BACKGROUND:uint = 0xCCCCCC;
-		public static var BUTTON_FACE:uint = 0xFFFFFF;
-		public static var INPUT_TEXT:uint = 0x333333;
-		public static var LABEL_TEXT:uint = 0xffffff;
-		public static var DROPSHADOW:uint = 0x000000;
-		public static var PANEL:uint = 0xF3F3F3;
-		public static var PROGRESS_BAR:uint = 0xFFFFFF;
+		/**
+		 * Constructor
+		 * @param parent The parent DisplayObjectContainer on which to add this ScrollBar.
+		 * @param xpos The x position to place this component.
+		 * @param ypos The y position to place this component.
+		 * @param defaultHandler The event handling function to handle the default event for this component (change in this case).
+		 */
+		public function VScrollBar(parent:DisplayObjectContainer=null, xpos:Number=0, ypos:Number=0, defaultHandler:Function=null)
+		{
+			super(Slider.VERTICAL, parent, xpos, ypos, defaultHandler);
+		}
 	}
 }
