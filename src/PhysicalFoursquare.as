@@ -101,6 +101,7 @@ package
 		protected var _navBar:NavigationBar;
 		protected var _search:SearchPage;
 		protected var _holdingSprite:Sprite;
+		protected var _holdingText:TextField;
 		protected var _currentPage:Number = Pages.SEARCH_PAGE;
 		
 		protected var _currentLat:Number;
@@ -132,8 +133,38 @@ package
 		public function PhysicalFoursquare()
 		{
 			super();
-			getOAuthCredentials();
-			//init();
+			preinit();
+		}
+		
+		// OAuth methods
+		private function preinit():void
+		{
+			_consumer = new OAuthConsumer(_foursquareKey,_foursquareSecret);
+			
+			var oauthRequest:OAuthRequest = new OAuthRequest(OAuthRequest.HTTP_MEHTOD_GET, _authExchange, 
+				{fs_username:_foursquareUsername,fs_password:_foursquarePassword},_consumer);
+			var requestUrl:String = oauthRequest.buildRequest(new OAuthSignatureMethod_HMAC_SHA1(), OAuthRequest.RESULT_TYPE_URL_STRING);
+			var request:URLRequest = new URLRequest(requestUrl);
+			
+			
+			var loader:URLLoader = new URLLoader();
+			loader.addEventListener(Event.COMPLETE, onOAuthLoginComplete);
+			loader.load(request);
+			
+		}
+		
+		private function onOAuthLoginComplete(event:Event):void
+		{
+			var loader:URLLoader = URLLoader(event.target);
+			var credentials:XML = new XML(loader.data);
+			
+			_token = new OAuthToken(credentials.oauth_token, credentials.oauth_token_secret);
+			
+			_foursquareService = new FoursquareService();
+			_foursquareService.consumer = _consumer;
+			_foursquareService.token = _token;
+			
+			init();			
 		}
 		
 		protected function init():void
@@ -189,22 +220,46 @@ package
 			//_map.url = "http://blog.digitalbackcountry.com";
 			_map.addEventListener(MapMouseEvent.DOUBLE_CLICK,onMapDoubleClick);
 			
+			_mapContainer.addChild(_map);
+			
 			var zoomIn:Sprite = new Sprite();
 				zoomIn.graphics.beginFill(0x000000,1);
 				zoomIn.graphics.drawEllipse(0,0,100,100);
 				zoomIn.graphics.endFill();
 				zoomIn.alpha = .5;
 				zoomIn.addEventListener(MouseEvent.CLICK,function(event:Event):void{_map.zoomIn()});
+			
+			var inText:TextField = new TextField()
+				inText.width = 100;
+				inText.height = 100;
+				inText.x = 0;
+				inText.y = 0;
+				inText.text = '+';
+				inText.selectable = false;
+				inText.setTextFormat(new TextFormat(null,100,0xffffff,false,false,false,null,null,TextAlign.CENTER));
+				
+				zoomIn.addChild(inText);	
 
+			_mapContainer.addChild(zoomIn);
+			
 			var zoomOut:Sprite = new Sprite();
 				zoomOut.graphics.beginFill(0x000000,1);
 				zoomOut.graphics.drawEllipse(0,115,100,100);
 				zoomOut.graphics.endFill();
 				zoomOut.alpha = .5;
-				zoomOut.addEventListener(MouseEvent.CLICK,function(event:Event):void{_map.zoomOut()});				
+				zoomOut.addEventListener(MouseEvent.CLICK,function(event:Event):void{_map.zoomOut()});	
 				
-			_mapContainer.addChild(_map);
-			_mapContainer.addChild(zoomIn);
+			var outText:TextField = new TextField()
+				outText.width = 100;
+				outText.height = 100;
+				outText.x = 0;
+				outText.y = 100;
+				outText.text = '-';
+				outText.selectable = false;
+				outText.setTextFormat(new TextFormat(null,200,0xffffff,false,false,false,null,null,TextAlign.CENTER));
+				
+				zoomOut.addChild(outText);				
+				
 			_mapContainer.addChild(zoomOut);
 			addChild(_mapContainer);			
 			
@@ -237,14 +292,14 @@ package
 			_holdingSprite.graphics.drawRect(0,0,480,800);
 			_holdingSprite.graphics.endFill();
 			
-			var holdingText:TextField = new TextField();
-				holdingText.text = "Acquiring Location";
-				holdingText.embedFonts = true;
-				holdingText.setTextFormat(new TextFormat("Folks",24,0xffffff,null,null,null,null,null,TextAlign.CENTER));
-				holdingText.width = 480;
-				holdingText.height = 800;
-				holdingText.y = 380;
-			_holdingSprite.addChild(holdingText);
+			_holdingText = new TextField();
+			_holdingText.text = "Acquiring Location";
+			_holdingText.embedFonts = true;
+			_holdingText.setTextFormat(new TextFormat("Folks",24,0xffffff,null,null,null,null,null,TextAlign.CENTER));
+			_holdingText.width = 480;
+			_holdingText.height = 800;
+			_holdingText.y = 380;
+			_holdingSprite.addChild(_holdingText);
 			
 			addChild(_holdingSprite);
 		}
@@ -260,7 +315,7 @@ package
 					TweenLite.to(_mapContainer,1,{x:0,y:0});
 					break;
 				case Pages.SEARCH_PAGE:
-					TweenLite.to(_search,1,{x:-480,y:0});
+					TweenLite.to(_search,1,{x:-960,y:0});
 					TweenLite.to(_list,1,{x:-480,y:0});
 					TweenLite.to(_mapContainer,1,{x:0,y:0});
 					break;
@@ -375,37 +430,8 @@ package
 			_map.setCenter(currentPos);
 			_map.addOverlay(marker);
 			
+			_holdingSprite.removeChild(_holdingText);
 			removeChild(_holdingSprite);
-		}
-		
-		private function getOAuthCredentials():void
-		{
-			_consumer = new OAuthConsumer(_foursquareKey,_foursquareSecret);
-			
-			var oauthRequest:OAuthRequest = new OAuthRequest(OAuthRequest.HTTP_MEHTOD_GET, _authExchange, 
-				{fs_username:_foursquareUsername,fs_password:_foursquarePassword},_consumer);
-			var requestUrl:String = oauthRequest.buildRequest(new OAuthSignatureMethod_HMAC_SHA1(), OAuthRequest.RESULT_TYPE_URL_STRING);
-			var request:URLRequest = new URLRequest(requestUrl);
-			
-			
-			var loader:URLLoader = new URLLoader();
-			loader.addEventListener(Event.COMPLETE, onOAuthLoginComplete);
-			loader.load(request);
-			
-		}
-		
-		private function onOAuthLoginComplete(event:Event):void
-		{
-			var loader:URLLoader = URLLoader(event.target);
-			var credentials:XML = new XML(loader.data);
-			
-			_token = new OAuthToken(credentials.oauth_token, credentials.oauth_token_secret);
-			
-			_foursquareService = new FoursquareService();
-			_foursquareService.consumer = _consumer;
-			_foursquareService.token = _token;
-			
-			init();			
 		}
 
 		
