@@ -116,7 +116,7 @@ package
 		protected var _authorize:String = "http://foursquare.com/oauth/authorize";
 		protected var _authExchange:String = "http://api.foursquare.com/v1/authexchange";
 		
-		// User specific data
+		// User specific data - This uses a UserData class that I didn't add to the source.
 		protected var _foursquareKey:String = UserData.YOUR_FOURSQUARE_KEY_HERE;
 		protected var _foursquareSecret:String = UserData.YOUR_FOURSQUARE_SECRET_HERE;
 		protected var _foursquareUsername:String = UserData.YOUR_FOURSQUARE_USERNAME_HERE;
