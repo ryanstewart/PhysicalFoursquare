@@ -1,0 +1,31 @@
+Ryan Stewart - http://blog.digitalbackcountry.com
+ryan@adobe.com
+  
+This project was created to show off a Flash application on mobile devices.
+It was customized to run for the screen size of the Nexus One but should work
+on any other device that supports Flash.
+ 
+----------------------------------------------------------------------------
+  	"THE BEER-WARE LICENSE" (Revision 42):
+ 	<ryan@adobe.com> wrote this file. As long as you retain this notice you
+ 	can do whatever you want with this stuff. If we meet some day, and you think
+ 	this stuff is worth it, you can buy me a beer in return 
+ 															=Ryan Stewart
+----------------------------------------------------------------------------
+ 
+ Huge thanks to Tim Walling (http://www.timwalling.com/) for help with the Foursquare API 
+ and his excellent AS3 library for it.
+  
+ Thanks to Serge Jespers for the HTML5 Geolocation code
+ http://www.webkitchen.be/2010/03/05/the-html5-flash-marriage-geolocation/
+  
+ This project uses the following libraries/projects:
+	- minimalcomps (http://code.google.com/p/minimalcomps/)
+  	- Google Maps AS3 API (http://code.google.com/apis/maps/documentation/flash/)
+  	- Google Maps Flash Utils (http://code.google.com/p/gmaps-utility-library-flash/)
+ 	- TweenLite (http://www.greensock.com/tweenlite/)
+	- foursquare-as3 (http://code.google.com/p/foursquare-as3/)
+	- GeonamesAS3 (http://github.com/ryanstewart/GeonamesAS3)
+	- oauth-as3 (http://code.google.com/p/oauth-as3/)
+  
+The Folks font is a free font from DaFonts - http://www.dafont.com/folks.font
